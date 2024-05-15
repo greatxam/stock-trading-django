@@ -7,6 +7,11 @@
 - Cron job for CSV bulk trades
 - Get total invested value per stock
 
+## [0.0.3] - 2024-05-15
+### Added
+- Stock API permissions
+- Stock API unit testing
+
 ## [0.0.2] - 2024-05-15
 ### Added
 - Django Rest Framework

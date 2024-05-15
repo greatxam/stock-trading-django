@@ -19,3 +19,9 @@ docker-compose up
 ```
 docker exec -it stocktrading python3 manage.py createuseruser
 ```
+
+# Testing the application
+Change the `core` with the module you want to test.
+```
+docker exec -it stocktrading python3 manage.py test core.tests
+```
