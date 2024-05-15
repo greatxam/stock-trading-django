@@ -73,6 +73,40 @@ class StockAPITestCase(APITestCaseMixin, APITestCase):
             reverse(StockTestHelper.API_NAME_STOCK_LIST),
             StockTestHelper.STOCK_DATA_1)
 
+    def test_create_stock_with_duplicate_code(self):
+        """
+        Creating stock with authenticated super user
+        and with duplicated `code`, should not be allow.
+
+        :return:
+        """
+        stock_code = "TST1"
+        StockTestHelper.create_test_stock(code=stock_code)
+        stock = StockTestHelper.STOCK_DATA_2
+        stock['code'] = stock_code
+
+        self.client.force_login(UserTestHelper.create_test_super_user())
+        self.assertFailedAdd(
+            reverse(StockTestHelper.API_NAME_STOCK_LIST),
+            stock)
+
+    def test_create_stock_with_duplicate_name(self):
+        """
+        Creating stock with authenticated super user
+        and with duplicated `name`, should not be allow.
+
+        :return:
+        """
+        stock_name = "Test Stock 1"
+        StockTestHelper.create_test_stock(name=stock_name)
+        stock = StockTestHelper.STOCK_DATA_2
+        stock['name'] = stock_name
+
+        self.client.force_login(UserTestHelper.create_test_super_user())
+        self.assertFailedAdd(
+            reverse(StockTestHelper.API_NAME_STOCK_LIST),
+            stock)
+
     def test_detail_stock(self):
         """
         Getting stock without authenticated user, should not be allow.
@@ -150,6 +184,46 @@ class StockAPITestCase(APITestCaseMixin, APITestCase):
 
         self.client.force_login(UserTestHelper.create_test_super_user())
         self.assertUserCanChange(
+            reverse(StockTestHelper.API_NAME_STOCK_DETAIL, kwargs={'pk': stock.pk}),
+            data=stock_data
+        )
+
+    def test_change_stock_with_duplicate_code(self):
+        """
+        Changing stock with authenticated super user
+        and with duplicated `code`, should not be allow.
+
+        :return:
+        """
+        stock_code = "TST1"
+        StockTestHelper.create_test_stock(code=stock_code)
+        stock = StockTestHelper.create_test_stock(**StockTestHelper.STOCK_DATA_2)
+        stock_data = {
+            "code": stock_code
+        }
+
+        self.client.force_login(UserTestHelper.create_test_super_user())
+        self.assertFailedChange(
+            reverse(StockTestHelper.API_NAME_STOCK_DETAIL, kwargs={'pk': stock.pk}),
+            data=stock_data
+        )
+
+    def test_change_stock_with_duplicate_name(self):
+        """
+        Changing stock with authenticated super user
+        and with duplicated `name`, should not be allow.
+
+        :return:
+        """
+        stock_name = "TST1"
+        StockTestHelper.create_test_stock(name=stock_name)
+        stock = StockTestHelper.create_test_stock(**StockTestHelper.STOCK_DATA_2)
+        stock_data = {
+            "name": stock_name
+        }
+
+        self.client.force_login(UserTestHelper.create_test_super_user())
+        self.assertFailedChange(
             reverse(StockTestHelper.API_NAME_STOCK_DETAIL, kwargs={'pk': stock.pk}),
             data=stock_data
         )

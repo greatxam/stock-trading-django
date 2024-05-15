@@ -343,3 +343,37 @@ class APITestCaseMixin:
         """
         self.assertIn('_auth_user_id', self.client.session, "User is not logged in.")
         self.assertCanDelete(url, data, message)
+
+    def assertFailedAdd(
+            self,
+            url,
+            data={},
+            message="Bad request, `add` action performed should failed."
+    ):
+        """
+        Failed `add` request.
+
+        :param url:
+        :param data:
+        :param message:
+        :return:
+        """
+        response = self.client.post(url, data)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, message)
+
+    def assertFailedChange(
+            self,
+            url,
+            data={},
+            message="Bad request, `change` action performed should failed."
+    ):
+        """
+        Failed `change` request.
+
+        :param url:
+        :param data:
+        :param message:
+        :return:
+        """
+        response = self.client.patch(url, data)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, message)

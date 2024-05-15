@@ -7,6 +7,15 @@
 - Cron job for CSV bulk trades
 - Get total invested value per stock
 
+## [0.0.5] - 2024-05-15
+### Added
+- Unit test for duplicated `code` field on `stock` in `core`
+- Unit test for duplicated `name` field on `stock` in `core`
+
+### Changed
+- Alter field `code` on `stock` in `core` module
+- Alter field `name` on `stock` in `core` module
+
 ## [0.0.4] - 2024-05-15
 ### Added
 - Docker ignore

@@ -61,6 +61,12 @@ class StockTestHelper:
         'price': 100.00
     }
 
+    STOCK_DATA_2 = {
+        'code': 'TST',
+        'name': 'Test Stock',
+        'price': 200.00
+    }
+
     @staticmethod
     def create_test_stock(
             code=STOCK_DATA_1['code'],

@@ -29,8 +29,10 @@ class Stock(BaseAbstract):
 
     # Fields
     code = models.CharField(
+        unique=True,
         max_length=4)
     name = models.CharField(
+        unique=True,
         max_length=100)
     price = models.DecimalField(
         max_digits=12,
