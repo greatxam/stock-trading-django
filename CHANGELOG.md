@@ -7,6 +7,14 @@
 - Cron job for CSV bulk trades
 - Get total invested value per stock
 
+## [0.0.1] - 2024-05-15
+### Added
+- Stock Trading `Core` module
+- Create `core` model `Stock`
+- Create `core` model `Transaction`
+- Create `core` proxy model `Order`
+- Create `core` proxy model `Trade`
+
 ## [0.0.0] - 2024-05-15
 ### Added
 - Django Framework

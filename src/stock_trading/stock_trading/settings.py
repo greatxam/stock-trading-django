@@ -35,6 +35,9 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
+    # Stock Trading apps
+    'core',
+
     # Django apps
     'django.contrib.admin',
     'django.contrib.auth',
