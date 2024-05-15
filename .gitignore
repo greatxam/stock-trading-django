@@ -1,0 +1,6 @@
+.*
+*.pyc
+!.gitignore
+!/data/empty
+/data/
+venv
