@@ -38,6 +38,11 @@ INSTALLED_APPS = [
     # Stock Trading apps
     'core',
 
+    # 3rd Party apps
+    'rest_framework',
+    'oauth2_provider',
+    'corsheaders',
+
     # Django apps
     'django.contrib.admin',
     'django.contrib.auth',
@@ -137,3 +142,30 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+OAUTH2_PROVIDER = {
+    # parses OAuth2 data from application/json requests
+    'OAUTH2_BACKEND_CLASS': 'oauth2_provider.oauth2_backends.JSONOAuthLibCore',
+    # this is the list of available scopes
+    'SCOPES': {
+        'read': 'Read scope',
+        'write': 'Write scope',
+    }
+}
+
+# Django REST Framework
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 50,
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+}
+
+CORS_ALLOWED_ORIGINS = os.environ['CORS'].split(',')
