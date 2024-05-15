@@ -6,7 +6,7 @@
 FROM debian:bookworm
 
 RUN apt-get update && \
-	apt-get upgrade -y;
+	apt-get upgrade -y
 
 # Install required packages
 RUN apt-get install -y \

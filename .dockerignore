@@ -1,10 +1,5 @@
-.*
+__pycache__/
 *.pyc
-!.gitignore
-!.dockerignore
-!/data/empty
-/data/
-venv
 /src/stock_trading/static/*
 !/src/stock_trading/static/empty
 /src/stock_trading/media/*

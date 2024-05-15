@@ -17,7 +17,7 @@ services:
       dockerfile: Dockerfile
     command: /docker-entrypoint.sh
     volumes:
-      - ./src/stock_trading:/stock_trading
+      - ./src/stock_trading:/var/www/stock_trading
     ports:
       - "8080:8080"
     env_file:

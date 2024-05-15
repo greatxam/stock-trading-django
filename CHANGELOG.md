@@ -7,6 +7,16 @@
 - Cron job for CSV bulk trades
 - Get total invested value per stock
 
+## [0.0.4] - 2024-05-15
+### Added
+- Docker ignore
+- Static directory
+- Media directory
+
+### Changed
+- Docker compose volume mount
+
+
 ## [0.0.3] - 2024-05-15
 ### Added
 - Stock API permissions
