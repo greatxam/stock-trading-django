@@ -6,10 +6,12 @@ from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
 
 from core.views.v1 import (
-    stock
+    stock,
+    order,
 )
 
 urlpatterns = [
+    # stocks
     path(
         'stocks/',
         stock.StockListView.as_view(),
@@ -18,6 +20,15 @@ urlpatterns = [
         'stocks/<uuid:pk>/',
         stock.StockDetailView.as_view(),
         name='core-api-stock-detail'),
+    # orders
+    path(
+        'orders/',
+        order.OrderListView.as_view(),
+        name='core-api-order-list'),
+    path(
+        'orders/<uuid:pk>/',
+        order.OrderDetailView.as_view(),
+        name='core-api-order-detail'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

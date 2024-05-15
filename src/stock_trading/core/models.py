@@ -47,7 +47,7 @@ class Transaction(BaseAbstract):
     # Transaction Type
     class Type:
         BUY = 0
-        SELL = 0
+        SELL = 1
 
         CHOICES = (
             (BUY, "Buy"),
@@ -78,8 +78,8 @@ class Transaction(BaseAbstract):
         on_delete=models.DO_NOTHING)
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE)
-    quantity = models.IntegerField(
+        on_delete=models.DO_NOTHING)
+    quantity = models.PositiveIntegerField(
         default=0)
     price = models.DecimalField(
         max_digits=12,
@@ -102,7 +102,7 @@ class Transaction(BaseAbstract):
 
 class OrderManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().filter(type=Transaction.Status.PENDING)
+        return super().get_queryset().filter(status=Transaction.Status.PENDING)
 
 
 class Order(Transaction):

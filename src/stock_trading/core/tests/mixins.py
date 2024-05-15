@@ -174,6 +174,7 @@ class APITestCaseMixin:
         """
         response = self.client.post(url, data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, message)
+        return response
 
     def assertCanChange(
             self,
@@ -191,6 +192,7 @@ class APITestCaseMixin:
         """
         response = self.client.patch(url, data)
         self.assertEqual(response.status_code, status.HTTP_200_OK, message)
+        return response
 
     def assertCanDelete(
             self,
@@ -308,7 +310,7 @@ class APITestCaseMixin:
         :return:
         """
         self.assertIn('_auth_user_id', self.client.session, "User is not logged in.")
-        self.assertCanAdd(url, data, message)
+        return self.assertCanAdd(url, data, message)
 
     def assertUserCanChange(
             self,
@@ -325,7 +327,7 @@ class APITestCaseMixin:
         :return:
         """
         self.assertIn('_auth_user_id', self.client.session, "User is not logged in.")
-        self.assertCanChange(url, data, message)
+        return self.assertCanChange(url, data, message)
 
     def assertUserCanDelete(
             self,

@@ -4,6 +4,7 @@
 from django.contrib.auth import get_user_model
 
 from core.models import *
+from core.services import TransactionService
 
 User = get_user_model()
 
@@ -79,3 +80,47 @@ class StockTestHelper:
             'price': price
         }
         return Stock.objects.create(**data)
+
+
+class OrderTestHelper:
+    # API URL names
+    API_NAME_ORDER_LIST = 'core-api-order-list'
+    API_NAME_ORDER_DETAIL = 'core-api-order-detail'
+
+    ORDER_DATA_1 = {
+        'type': Transaction.Type.BUY,
+        'quantity': 20,
+        'price': 100.00
+    }
+
+    ORDER_DATA_2 = {
+        'type': Transaction.Type.SELL,
+        'quantity': 10,
+        'price': 100.00
+    }
+
+    @staticmethod
+    def create_test_order(
+            user,
+            stock,
+            type=ORDER_DATA_1['type'],
+            quantity=ORDER_DATA_1['quantity'],
+            price=ORDER_DATA_1['price']
+    ):
+        """
+        Create test order transaction.
+
+        :param user:
+        :param stock:
+        :param type:
+        :param quantity:
+        :param price:
+        :return:
+        """
+        return TransactionService.create_transaction(
+            user=user,
+            stock=stock,
+            type=type,
+            quantity=quantity,
+            price=price
+        )
