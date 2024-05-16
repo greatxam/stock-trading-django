@@ -11,6 +11,7 @@ RUN apt-get update && \
 # Install required packages
 RUN apt-get install -y \
     build-essential \
+    cron \
     python3.11 \
     python3-pip \
     apache2 \

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'oauth2_provider',
     'corsheaders',
+    'django_crontab',
 
     # Django apps
     'django.contrib.admin',
@@ -169,3 +170,14 @@ REST_FRAMEWORK = {
 }
 
 CORS_ALLOWED_ORIGINS = os.environ['CORS'].split(',')
+
+CRONJOBS = [
+    # ('*/1 * * * *', 'django.core.management.call_command', ['process_order_transaction']),
+    # ('*/1 * * * *', 'django.core.management.call_command', ['process_bulk_order_file']),
+    # ('*/1 * * * *', 'core.management.call_command', ['process_order_transaction']),
+    # ('*/1 * * * *', 'core.management.call_command', ['process_bulk_order_file']),
+    # ('*/1 * * * *', 'stock_trading.core.management.call_command', ['process_order_transaction']),
+    # ('*/1 * * * *', 'stock_trading.core.management.call_command', ['process_bulk_order_file']),
+    ('*/1 * * * *', 'core.cron.schedule_process_order_transaction'),
+    ('*/1 * * * *', 'core.cron.schedule_process_bulk_order_file'),
+]

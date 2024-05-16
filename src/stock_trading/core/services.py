@@ -97,8 +97,8 @@ class TransactionService:
         :param file:
         :return:
         """
-        folder = generate_uuid(f"{user.pk}_{user.username}")
-        file_path = f"{folder}/{filename}"
+        # folder = generate_uuid(f"{user.pk}_{user.username}")
+        file_path = f"{user.pk}/{filename}"
         return default_storage.save(file_path, file)
 
 
@@ -141,6 +141,41 @@ class TransactionService:
         except Exception as ex:
             logger.error(f"ERROR: Failed to read line in CSV file. {ex}")
         return Transaction.objects.filter(pk__in=created_orders)
+
+    @staticmethod
+    def process_order_transaction(
+            stock_code
+    ):
+        """
+        Process order transactions for clearing.
+
+        :param stock_code:
+        :return:
+        """
+        logger.info(f"START process_order_transaction: {stock_code}")
+        print(f"START process_order_transaction: {stock_code}")
+
+        transactions = Transaction.objects.filter(status=Transaction.Status.PENDING)
+        if stock_code:
+            transactions = transactions.filter(stock__code=stock_code)[:2]
+
+        for t in transactions:
+            if t.type is Transaction.Type.SELL:
+                # check user if eligible to sell
+                try:
+                    user_portfolio = Portfolio.objects.get(user=t.user, stock=t.stock)
+                    if user_portfolio.total_share < t.quantity:
+                        continue
+                except Portfolio.DoesNotExist:
+                    continue
+
+            t.status = Transaction.Status.CLEARED
+            t.save(update_fields=['status'])
+            logger.info(f"{t.user} {t.type} {t.stock}: {t.quantity} * {t.price} ({t.amount})")
+            print(f"{t.user} {t.type} {t.stock}: {t.quantity} * {t.price} ({t.amount})")
+
+        logger.info(f"FINISH process_order_transaction")
+        print(f"FINISH process_order_transaction")
 
 
 class PortfolioService:

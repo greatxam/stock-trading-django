@@ -2,10 +2,16 @@
 
 ## [Unreleased]
 - Get live stock data
-- Placing stock order
-- Upload CSV file for bulk trades
-- Cron job for CSV bulk trades
-- Get total invested value per stock
+
+## [0.0.9] - 2024-05-17
+### Added
+- Cron package
+- Process order transaction command
+- Process bulk transaction command
+- Schedule process commands
+
+### Changed
+- Use user `pk` as user's folder
 
 ## [0.0.8] - 2024-05-17
 ### Added
