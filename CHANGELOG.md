@@ -3,6 +3,10 @@
 ## [Unreleased]
 - Get live stock data
 
+## [0.0.10] - 2024-05-17
+### Added
+- Postman collection and environment
+
 ## [0.0.9] - 2024-05-17
 ### Added
 - Cron package
