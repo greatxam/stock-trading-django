@@ -5,6 +5,7 @@ import uuid
 
 from django.conf import settings
 from django.db import models
+from decimal import Decimal
 
 
 class BaseAbstract(models.Model):
@@ -37,7 +38,7 @@ class Stock(BaseAbstract):
     price = models.DecimalField(
         max_digits=12,
         decimal_places=2,
-        default=0.0)
+        default=Decimal(0.00))
 
     def __str__(self):
         return self.code
@@ -84,16 +85,16 @@ class Transaction(BaseAbstract):
     price = models.DecimalField(
         max_digits=12,
         decimal_places=2,
-        default=0.0)
+        default=Decimal(0.00))
     amount = models.DecimalField(
         max_digits=12,
         decimal_places=2,
-        default=0.0)
+        default=Decimal(0.00))
 
     def __str__(self):
         return "{}: ({}) {} - {} {} {}".format(
             self.created,
-            self.Type,
+            self.type,
             self.stock.code,
             self.quantity,
             self.price,
@@ -130,3 +131,34 @@ class Trade(Transaction):
     def save(self, *args, **kwargs):
         self.status = Transaction.Status.CLEARED
         super().save(*args, **kwargs)
+
+
+class Portfolio(BaseAbstract):
+    class Meta:
+        db_table = 'core_portfolios'
+        unique_together = (('user', 'stock'),)
+        ordering = ['stock__code']
+
+    # fields
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.DO_NOTHING)
+    stock = models.ForeignKey(
+        'Stock',
+        on_delete=models.DO_NOTHING)
+    total_share = models.PositiveIntegerField(
+        default=0)
+    total_value = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=Decimal(0.00))
+    average_price = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=Decimal(0.00))
+
+    def get_market_price(self):
+        return self.stock.price
+
+    def get_market_value(self):
+        return self.total_share * self.stock.price

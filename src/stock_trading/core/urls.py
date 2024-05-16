@@ -9,6 +9,7 @@ from core.views.v1 import (
     stock,
     order,
     trade,
+    portfolio,
 )
 
 urlpatterns = [
@@ -43,6 +44,11 @@ urlpatterns = [
         'trades/<uuid:pk>/',
         trade.TradeDetailView.as_view(),
         name='core-api-trade-detail'),
+    # portfolios
+    path(
+        'portfolios/',
+        portfolio.PortfolioListView.as_view(),
+        name='core-api-portfolio-list'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

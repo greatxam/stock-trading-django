@@ -7,6 +7,14 @@
 - Cron job for CSV bulk trades
 - Get total invested value per stock
 
+## [0.0.8] - 2024-05-17
+### Added
+- Create `core` model `Portfolio`
+- Portfolio admin
+- Portfolio services
+- Portfolio API views
+- Transaction `post_save` signal
+
 ## [0.0.8] - 2024-05-16
 ### Added
 - Upload bulk order CSV file and process

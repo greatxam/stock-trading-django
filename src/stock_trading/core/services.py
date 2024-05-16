@@ -5,11 +5,13 @@ import logging
 import pandas as pd
 import uuid
 import hashlib
+from decimal import Decimal
 
 from django.core.files.storage import default_storage
 
 from core.models import (
     Stock,
+    Portfolio,
     Transaction
 )
 
@@ -139,3 +141,32 @@ class TransactionService:
         except Exception as ex:
             logger.error(f"ERROR: Failed to read line in CSV file. {ex}")
         return Transaction.objects.filter(pk__in=created_orders)
+
+
+class PortfolioService:
+    """
+    PortfolioService process the business logic regarding the portfolio.
+    """
+    @staticmethod
+    def update_portfolio(
+            transation
+    ):
+        """
+        Update portfolio.
+
+        :param transation:
+        :return:
+        """
+        if transation.status is not Transaction.Status.CLEARED:
+            return None
+
+        portfolio, created = Portfolio.objects.get_or_create(
+            user=transation.user,
+            stock=transation.stock,
+            defaults={'user': transation.user, 'stock': transation.stock})
+
+        portfolio.total_share += transation.quantity
+        portfolio.total_value = portfolio.total_value + transation.amount
+        portfolio.average_price = (portfolio.average_price + transation.price) * Decimal(0.50)
+        portfolio.save()
+        return portfolio

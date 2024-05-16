@@ -5,7 +5,8 @@ from django.contrib import admin
 
 from core.models import \
     Stock, \
-    Transaction
+    Transaction, \
+    Portfolio
 
 
 @admin.register(Stock)
@@ -25,3 +26,12 @@ class Transaction(admin.ModelAdmin):
         'quantity',
         'price',
         'amount')
+
+
+@admin.register(Portfolio)
+class Portfolio(admin.ModelAdmin):
+    list_display = (
+        'user',
+        'stock',
+        'total_share',
+        'average_price')

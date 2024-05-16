@@ -54,3 +54,18 @@ class TradeSerializer(serializers.ModelSerializer):
             'status',
             'amount',
         ]
+
+
+class PortfolioSerializer(serializers.ModelSerializer):
+    market_price = serializers.SerializerMethodField()
+    market_value = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Portfolio
+        fields = '__all__'
+
+    def get_market_price(self, obj):
+        return obj.get_market_price()
+
+    def get_market_value(self, obj):
+        return obj.get_market_value()
