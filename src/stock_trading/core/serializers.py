@@ -37,6 +37,14 @@ class OrderSerializer(serializers.ModelSerializer):
         return TransactionService.save_transaction(self.instance)
 
 
+class OrderBulkSerializer(serializers.Serializer):
+    file = serializers.FileField()
+    to_stored = serializers.BooleanField(default=False)
+
+    class Meta:
+        fields = ('file', 'to_stored')
+
+
 class TradeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trade

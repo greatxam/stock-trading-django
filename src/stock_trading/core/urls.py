@@ -30,6 +30,10 @@ urlpatterns = [
         'orders/<uuid:pk>/',
         order.OrderDetailView.as_view(),
         name='core-api-order-detail'),
+    path(
+        'orders/bulk/<str:filename>',
+        order.OrderBulkView.as_view(),
+        name='core-api-order-bulk'),
     # trades
     path(
         'trades/',

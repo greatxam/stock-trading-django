@@ -7,6 +7,11 @@
 - Cron job for CSV bulk trades
 - Get total invested value per stock
 
+## [0.0.8] - 2024-05-16
+### Added
+- Upload bulk order CSV file and process
+- Upload bulk order CSV file and store only
+
 ## [0.0.7] - 2024-05-16
 ### Added
 - Trade services

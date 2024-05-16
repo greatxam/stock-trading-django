@@ -1,7 +1,29 @@
 # Stock Trading
 # Created by Maximillian M. Estrada on 2024-05-16
 
-from core.models import Transaction
+import logging
+import pandas as pd
+import uuid
+import hashlib
+
+from django.core.files.storage import default_storage
+
+from core.models import (
+    Stock,
+    Transaction
+)
+
+logger = logging.getLogger(__name__)
+
+
+def get_type_by_name(name: str):
+    types = dict([i[::-1] for i in Transaction.Type.CHOICES])
+    return types[name]
+
+
+def generate_uuid(val: str):
+    hex_string = hashlib.md5(val.encode("UTF-8")).hexdigest()
+    return uuid.UUID(hex=hex_string)
 
 
 class TransactionService:
@@ -58,3 +80,62 @@ class TransactionService:
         if commit:
             transaction.save()
         return transaction
+
+    @staticmethod
+    def store_bulk_order_file(
+            user,
+            filename,
+            file,
+    ):
+        """
+        Stored the bulk order file.
+
+        :param user:
+        :param filename:
+        :param file:
+        :return:
+        """
+        folder = generate_uuid(f"{user.pk}_{user.username}")
+        file_path = f"{folder}/{filename}"
+        return default_storage.save(file_path, file)
+
+
+    @staticmethod
+    def bulk_orders(
+            user,
+            filename,
+            file,
+    ):
+        """
+        Process bulk orders.
+
+        :param user:
+        :param filename:
+        :param file:
+        :return:
+        """
+        logger.info(f"START bulk_orders: {user.username} - {filename}")
+
+        df = pd.read_csv(
+            file,
+            usecols=["TYPE", "STOCK", "QUANTITY", "PRICE"],
+        )
+
+        created_orders = set()
+        try:
+            for l in df.itertuples():
+                try:
+                    stock = Stock.objects.get(code=l.STOCK)
+                    order = TransactionService.create_transaction(
+                        user=user,
+                        stock=stock,
+                        type=get_type_by_name(l.TYPE),
+                        quantity=l.QUANTITY,
+                        price=l.PRICE
+                    )
+                    created_orders.add(order.pk)
+                except Stock.DoesNotExist as ex:
+                    logger.error(f"ERROR: Stock code {l.STOCK} not found, skipping. {ex}")
+        except Exception as ex:
+            logger.error(f"ERROR: Failed to read line in CSV file. {ex}")
+        return Transaction.objects.filter(pk__in=created_orders)
