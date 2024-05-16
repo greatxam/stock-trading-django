@@ -118,7 +118,7 @@ class Order(Transaction):
 
 class TradeManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().filter(type=Transaction.Status.CLEARED)
+        return super().get_queryset().filter(status=Transaction.Status.CLEARED)
 
 
 class Trade(Transaction):

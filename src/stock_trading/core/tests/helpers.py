@@ -124,3 +124,52 @@ class OrderTestHelper:
             quantity=quantity,
             price=price
         )
+
+
+class TradeTestHelper:
+    # API URL names
+    API_NAME_TRADE_LIST = 'core-api-trade-list'
+    API_NAME_TRADE_DETAIL = 'core-api-trade-detail'
+
+    TRADE_DATA_1 = {
+        'type': Transaction.Type.BUY,
+        'status': Transaction.Status.CLEARED,
+        'quantity': 20,
+        'price': 100.00
+    }
+
+    TRADE_DATA_2 = {
+        'type': Transaction.Type.SELL,
+        'status': Transaction.Status.CLEARED,
+        'quantity': 10,
+        'price': 100.00
+    }
+
+    @staticmethod
+    def create_test_trade(
+            user,
+            stock,
+            type=TRADE_DATA_1['type'],
+            status=TRADE_DATA_1['status'],
+            quantity=TRADE_DATA_1['quantity'],
+            price=TRADE_DATA_1['price']
+    ):
+        """
+        Create test order transaction.
+
+        :param user:
+        :param stock:
+        :param type:
+        :param status:
+        :param quantity:
+        :param price:
+        :return:
+        """
+        return TransactionService.create_transaction(
+            user=user,
+            stock=stock,
+            type=type,
+            status=status,
+            quantity=quantity,
+            price=price
+        )

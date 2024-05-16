@@ -7,6 +7,13 @@
 - Cron job for CSV bulk trades
 - Get total invested value per stock
 
+## [0.0.7] - 2024-05-16
+### Added
+- Trade services
+- Trade API views
+- Trade API permissions
+- Trade API unit tests
+
 ## [0.0.6] - 2024-05-16
 ### Added
 - Order services

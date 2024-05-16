@@ -8,6 +8,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from core.views.v1 import (
     stock,
     order,
+    trade,
 )
 
 urlpatterns = [
@@ -29,6 +30,15 @@ urlpatterns = [
         'orders/<uuid:pk>/',
         order.OrderDetailView.as_view(),
         name='core-api-order-detail'),
+    # trades
+    path(
+        'trades/',
+        trade.TradeListView.as_view(),
+        name='core-api-trade-list'),
+    path(
+        'trades/<uuid:pk>/',
+        trade.TradeDetailView.as_view(),
+        name='core-api-trade-detail'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
