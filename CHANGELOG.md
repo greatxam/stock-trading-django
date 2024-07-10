@@ -3,6 +3,10 @@
 ## [Unreleased]
 - Get live stock data
 
+[0.0.11] - 2024-07-10
+### Added
+- CORS middleware
+
 ## [0.0.10] - 2024-05-17
 ### Added
 - Postman collection and environment
