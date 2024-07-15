@@ -3,6 +3,10 @@
 ## [Unreleased]
 - Get live stock data
 
+[0.0.12] - 2024-07-15
+### Added
+- Stock related field
+
 [0.0.11] - 2024-07-10
 ### Added
 - CORS middleware
