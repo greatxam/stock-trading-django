@@ -13,7 +13,22 @@ class StockSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class StockRelatedField(serializers.RelatedField):
+    def get_queryset(self):
+        return Stock.objects.all()
+
+    def to_representation(self, value):
+        # TODO: fix render to browser
+        return StockSerializer(value).data
+
+    def to_internal_value(self, data):
+        stock = Stock.objects.get(pk=data)
+        return stock
+
+
 class OrderSerializer(serializers.ModelSerializer):
+    stock = StockRelatedField()
+
     class Meta:
         model = Order
         fields = '__all__'
