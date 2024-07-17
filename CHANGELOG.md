@@ -3,6 +3,10 @@
 ## [Unreleased]
 - Get live stock data
 
+[0.0.13] - 2024-07-17
+### Changed
+- Trade serializer related stock field
+
 [0.0.12] - 2024-07-15
 ### Added
 - Stock related field
