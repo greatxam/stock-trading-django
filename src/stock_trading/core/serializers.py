@@ -61,6 +61,8 @@ class OrderBulkSerializer(serializers.Serializer):
 
 
 class TradeSerializer(serializers.ModelSerializer):
+    stock = StockRelatedField()
+
     class Meta:
         model = Trade
         fields = '__all__'
