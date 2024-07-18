@@ -3,15 +3,20 @@
 ## [Unreleased]
 - Get live stock data
 
-[0.0.13] - 2024-07-17
+## [0.0.14] - 2024-07-18
+### Added
+- Configuration wiki
+- OAuth application wiki
+
+## [0.0.13] - 2024-07-17
 ### Changed
 - Trade serializer related stock field
 
-[0.0.12] - 2024-07-15
+## [0.0.12] - 2024-07-15
 ### Added
 - Stock related field
 
-[0.0.11] - 2024-07-10
+## [0.0.11] - 2024-07-10
 ### Added
 - CORS middleware
 
