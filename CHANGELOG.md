@@ -3,6 +3,16 @@
 ## [Unreleased]
 - Get live stock data
 
+## [0.0.16] - 2024-07-18
+### Added
+- Transaction `pre_save` signal
+
+### Changed
+- Portfolio service `transaction` typo
+
+### Removed
+- Order serializer `save`
+
 ## [0.0.15] - 2024-07-18
 ### Changed
 - Environment Variable Settings

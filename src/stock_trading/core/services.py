@@ -101,7 +101,6 @@ class TransactionService:
         file_path = f"{user.pk}/{filename}"
         return default_storage.save(file_path, file)
 
-
     @staticmethod
     def bulk_orders(
             user,
@@ -184,24 +183,24 @@ class PortfolioService:
     """
     @staticmethod
     def update_portfolio(
-            transation
+            transaction
     ):
         """
         Update portfolio.
 
-        :param transation:
+        :param transaction:
         :return:
         """
-        if transation.status is not Transaction.Status.CLEARED:
+        if transaction.status is not Transaction.Status.CLEARED:
             return None
 
         portfolio, created = Portfolio.objects.get_or_create(
-            user=transation.user,
-            stock=transation.stock,
-            defaults={'user': transation.user, 'stock': transation.stock})
+            user=transaction.user,
+            stock=transaction.stock,
+            defaults={'user': transaction.user, 'stock': transaction.stock})
 
-        portfolio.total_share += transation.quantity
-        portfolio.total_value = portfolio.total_value + transation.amount
-        portfolio.average_price = (portfolio.average_price + transation.price) * Decimal(0.50)
+        portfolio.total_share += transaction.quantity
+        portfolio.total_value = portfolio.total_value + transaction.amount
+        portfolio.average_price = (portfolio.average_price + transaction.price) * Decimal(0.50)
         portfolio.save()
         return portfolio
