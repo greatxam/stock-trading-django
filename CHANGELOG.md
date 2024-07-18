@@ -3,6 +3,13 @@
 ## [Unreleased]
 - Get live stock data
 
+## [0.0.15] - 2024-07-18
+### Changed
+- Environment Variable Settings
+
+### Removed
+- Remove `local.env` file
+
 ## [0.0.14] - 2024-07-18
 ### Added
 - Configuration wiki

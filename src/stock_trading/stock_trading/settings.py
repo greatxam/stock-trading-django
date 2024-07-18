@@ -22,13 +22,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = os.getenv('SECRET_KEY', None)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ['DEBUG']
+DEBUG = os.getenv('DEBUG', False)
 
 ALLOWED_HOSTS = [
-    os.environ['HOST']
+    os.getenv('HOST', 'localhost')
 ]
 
 
@@ -91,11 +91,11 @@ WSGI_APPLICATION = 'stock_trading.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ['POSTGRES_DB'],
-        'USER': os.environ['POSTGRES_USER'],
-        'PASSWORD': os.environ['POSTGRES_PASSWORD'],
-        'HOST': os.environ['POSTGRES_HOST'],
-        'PORT': os.environ['POSTGRES_PORT']
+        'NAME': os.getenv('POSTGRES_DB', None),
+        'USER': os.getenv('POSTGRES_USER', None),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD', None),
+        'HOST': os.getenv('POSTGRES_HOST', None),
+        'PORT': os.getenv('POSTGRES_PORT', None)
     }
 }
 
@@ -170,7 +170,7 @@ REST_FRAMEWORK = {
     'TEST_REQUEST_DEFAULT_FORMAT': 'json',
 }
 
-CORS_ALLOWED_ORIGINS = os.environ['CORS'].split(',')
+CORS_ALLOWED_ORIGINS = os.getenv('CORS', 'http://localhost').split(',')
 
 CRONJOBS = [
     # ('*/1 * * * *', 'django.core.management.call_command', ['process_order_transaction']),
