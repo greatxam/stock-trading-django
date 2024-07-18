@@ -6,10 +6,11 @@ services:
     volumes:
       - ./data/postgres:/var/lib/postgresql/data
     env_file:
-      - ./local.env
+      - ./.env
   app:
     depends_on:
       - db
+      #- redis
     image: stocktrading:compose
     container_name: stocktrading
     build:
@@ -21,4 +22,4 @@ services:
     ports:
       - "8080:8080"
     env_file:
-      - ./local.env
+      - ./.env
