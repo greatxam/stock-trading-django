@@ -47,10 +47,6 @@ class OrderSerializer(serializers.ModelSerializer):
             type=validated_data.get('type')
         )
 
-    def save(self, **kwargs):
-        self.instance = super().save(**kwargs)
-        return TransactionService.save_transaction(self.instance)
-
 
 class OrderBulkSerializer(serializers.Serializer):
     file = serializers.FileField()
