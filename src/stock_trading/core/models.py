@@ -92,14 +92,26 @@ class Transaction(BaseAbstract):
         decimal_places=2,
         default=Decimal(0.00))
 
+    trades = models.ManyToManyField(
+        'self',
+        blank=True)
+
     def __str__(self):
-        return "{}: ({}) {} - {} {} {}".format(
-            self.created,
-            self.type,
+        return "({}) {} {}: {} | {} | {}".format(
+            self.get_status_display(),
+            self.get_type_display(),
             self.stock.code,
             self.quantity,
             self.price,
             self.amount)
+
+    def cleared_quantity(self):
+        return self.trades.all().aggregate(
+            models.Sum('quantity', default=0)
+        ).get('quantity__sum')
+
+    def remainder_quantity(self):
+        return self.quantity - self.cleared_quantity()
 
 
 class OrderManager(models.Manager):
@@ -161,6 +173,9 @@ class Portfolio(BaseAbstract):
         max_digits=12,
         decimal_places=2,
         default=Decimal(0.00))
+
+    def __str__(self):
+        return f"{self.user} {self.stock}: {self.total_share} | {self.total_value}"
 
     def get_market_price(self):
         return self.stock.price
