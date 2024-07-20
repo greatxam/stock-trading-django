@@ -3,7 +3,19 @@
 ## [Unreleased]
 - Get live stock data
 
-## [0.0.17] - 2024-07-22
+## [0.0.18] - 2024-07-21
+### Added
+- Add field `trades` to `transaction`
+- Transaction service `process_transaction`
+- Transaction service `match_order_transaction`
+- Transaction service `clone_transaction`
+- Transaction service `clear_transaction`
+
+### Changed
+- Update transaction service `process_order_transaction`
+- Update portfolio service `update_portfolio`
+
+## [0.0.17] - 2024-07-21
 ### Added
 - Add field `is_order` to `transaction`
 
