@@ -3,6 +3,10 @@
 ## [Unreleased]
 - Get live stock data
 
+## [0.0.17] - 2024-07-22
+### Added
+- Add field `is_order` to `transaction`
+
 ## [0.0.16] - 2024-07-18
 ### Added
 - Transaction `pre_save` signal
