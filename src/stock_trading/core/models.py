@@ -68,6 +68,7 @@ class Transaction(BaseAbstract):
         ordering = ['-created']
 
     # Fields
+    is_order = models.BooleanField(default=True)
     type = models.PositiveSmallIntegerField(
         default=Type.BUY,
         choices=Type.CHOICES)
@@ -103,7 +104,9 @@ class Transaction(BaseAbstract):
 
 class OrderManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().filter(status=Transaction.Status.PENDING)
+        return super().get_queryset().filter(
+            is_order=True,
+            status=Transaction.Status.PENDING)
 
 
 class Order(Transaction):
@@ -119,7 +122,9 @@ class Order(Transaction):
 
 class TradeManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().filter(status=Transaction.Status.CLEARED)
+        return super().get_queryset().filter(
+            is_order=False,
+            status=Transaction.Status.CLEARED)
 
 
 class Trade(Transaction):
