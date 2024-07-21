@@ -3,6 +3,10 @@
 ## [Unreleased]
 - Get live stock data
 
+## [0.0.20] - 2024-07-21
+### Change
+- Order computation discrepancy
+
 ## [0.0.19] - 2024-07-21
 ### Added
 - Set WSGI application group

@@ -111,6 +111,7 @@ class TransactionService:
         # trade transaction for order_2
         trade = TransactionService.clone_transaction(order_2)
         trade.is_order = False
+        trade.quantity = order_2.remainder_quantity()
         TransactionService.clear_transaction(trade)
         order_2.trades.add(trade)
         TransactionService.clear_transaction(order_2)
@@ -270,12 +271,14 @@ class TransactionService:
                 ~Q(user__pk=transaction.user.pk),
                 stock__pk=transaction.stock.pk,
                 price__gte=transaction.price,
+                status=Transaction.Status.PENDING,
                 type=Transaction.Type.BUY).order_by('-price', 'created')
         else:
             orders = Transaction.objects.filter(
                 ~Q(user__pk=transaction.user.pk),
                 stock__pk=transaction.stock.pk,
                 price__lte=transaction.price,
+                status=Transaction.Status.PENDING,
                 type=Transaction.Type.SELL).order_by('price', 'created')
 
         for order in orders:
