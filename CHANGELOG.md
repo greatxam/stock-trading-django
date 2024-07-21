@@ -3,6 +3,10 @@
 ## [Unreleased]
 - Get live stock data
 
+## [0.0.21] - 2024-07-21
+### Changed
+- Portfolio average price computation
+
 ## [0.0.20] - 2024-07-21
 ### Change
 - Order computation discrepancy

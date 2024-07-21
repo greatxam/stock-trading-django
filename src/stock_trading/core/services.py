@@ -319,8 +319,16 @@ class PortfolioService:
             stock=transaction.stock,
             defaults={'user': transaction.user, 'stock': transaction.stock})
 
+        if created:
+            average_price = transaction.price
+        else:
+            average_price = portfolio.total_share * portfolio.average_price
+            average_price += transaction.quantity * transaction.price
+            average_price *= Decimal(0.5)
+            average_price /= (portfolio.total_share + transaction.quantity) * Decimal(0.5)
+
         portfolio.total_share += transaction.quantity
-        portfolio.total_value = portfolio.total_value + transaction.amount
-        portfolio.average_price = (portfolio.average_price + transaction.price) * Decimal(0.50)
+        portfolio.total_value += transaction.amount
+        portfolio.average_price = average_price
         portfolio.save()
         return portfolio
