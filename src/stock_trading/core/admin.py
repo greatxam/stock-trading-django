@@ -15,17 +15,29 @@ class StockAdmin(admin.ModelAdmin):
         'code',
         'name',
         'price')
+    search_fields = [
+        'name',
+        'code',
+    ]
 
 
 @admin.register(Transaction)
 class Transaction(admin.ModelAdmin):
     list_display = (
+        'type',
+        'status',
         'stock',
         'user',
+        'is_order',
         'type',
+        'remainder_quantity',
         'quantity',
         'price',
         'amount')
+    search_fields = [
+        'stock__code',
+        'user__username'
+    ]
 
 
 @admin.register(Portfolio)
@@ -35,3 +47,7 @@ class Portfolio(admin.ModelAdmin):
         'stock',
         'total_share',
         'average_price')
+    search_fields = [
+        'stock__code',
+        'user__username'
+    ]
