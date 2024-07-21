@@ -3,7 +3,11 @@
 ## [Unreleased]
 - Get live stock data
 
-## [0.0.18] - 2024-07-21
+## [0.0.19] - 2024-07-21
+### Added
+- Set WSGI application group
+
+## [0.0.18] - 2024-07-20
 ### Added
 - Add field `trades` to `transaction`
 - Transaction service `process_transaction`
@@ -15,7 +19,7 @@
 - Update transaction service `process_order_transaction`
 - Update portfolio service `update_portfolio`
 
-## [0.0.17] - 2024-07-21
+## [0.0.17] - 2024-07-20
 ### Added
 - Add field `is_order` to `transaction`
 
