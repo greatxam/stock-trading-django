@@ -29,7 +29,6 @@ class Transaction(admin.ModelAdmin):
         'stock',
         'user',
         'is_order',
-        'type',
         'remainder_quantity',
         'quantity',
         'price',
@@ -37,6 +36,11 @@ class Transaction(admin.ModelAdmin):
     search_fields = [
         'stock__code',
         'user__username'
+    ]
+    list_filter = [
+        'type',
+        'status',
+        'is_order',
     ]
 
 
