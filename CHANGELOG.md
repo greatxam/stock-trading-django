@@ -3,6 +3,12 @@
 ## [Unreleased]
 - Get live stock data
 
+## [0.0.22] - 2024-07-21
+### Added
+- Admin stock search
+- Admin transaction search
+- Admin portfolio search
+
 ## [0.0.21] - 2024-07-21
 ### Changed
 - Portfolio average price computation
