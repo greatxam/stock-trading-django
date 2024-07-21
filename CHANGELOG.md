@@ -3,6 +3,10 @@
 ## [Unreleased]
 - Get live stock data
 
+## [0.0.23] - 2024-07-21
+### Added
+- Admin transaction filter
+
 ## [0.0.22] - 2024-07-21
 ### Added
 - Admin stock search
