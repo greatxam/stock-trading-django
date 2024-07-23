@@ -43,4 +43,6 @@ RUN chmod -R 755 /var/www
 
 # Docker entrypoint script
 COPY --chmod=0755 ./docker-entrypoint.sh /
-ENTRYPOINT ["/bin/sh", "/docker-entrypoint.sh"]
+ENTRYPOINT ["/docker-entrypoint.sh"]
+
+CMD ["apache2ctl", "-D", "FOREGROUND"]

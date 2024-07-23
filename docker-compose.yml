@@ -7,19 +7,26 @@ services:
       - ./data/postgres:/var/lib/postgresql/data
     env_file:
       - ./.env
-  app:
+  app: &app
     depends_on:
       - db
-      #- redis
     image: stocktrading:compose
     container_name: stocktrading
     build:
       context: .
       dockerfile: Dockerfile
-    command: /docker-entrypoint.sh
+    entrypoint: /docker-entrypoint.sh
+    command: apache2ctl -D FOREGROUND
     volumes:
       - ./src/stock_trading:/var/www/stock_trading
     ports:
       - "8080:8080"
     env_file:
       - ./.env
+  cron:
+    <<: *app
+    depends_on:
+      - db
+    container_name: cron
+    command: cron -f
+    ports: []

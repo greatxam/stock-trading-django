@@ -173,12 +173,8 @@ REST_FRAMEWORK = {
 CORS_ALLOWED_ORIGINS = os.getenv('CORS', 'http://localhost').split(',')
 
 CRONJOBS = [
-    # ('*/1 * * * *', 'django.core.management.call_command', ['process_order_transaction']),
-    # ('*/1 * * * *', 'django.core.management.call_command', ['process_bulk_order_file']),
-    # ('*/1 * * * *', 'core.management.call_command', ['process_order_transaction']),
-    # ('*/1 * * * *', 'core.management.call_command', ['process_bulk_order_file']),
-    # ('*/1 * * * *', 'stock_trading.core.management.call_command', ['process_order_transaction']),
-    # ('*/1 * * * *', 'stock_trading.core.management.call_command', ['process_bulk_order_file']),
-    ('*/1 * * * *', 'core.cron.schedule_process_order_transaction'),
-    ('*/1 * * * *', 'core.cron.schedule_process_bulk_order_file'),
+    ('*/5 * * * *', 'core.cron.schedule_process_order_transaction'),
+    ('*/5 * * * *', 'core.cron.schedule_process_bulk_order_file'),
 ]
+
+CRONTAB_COMMAND_SUFFIX = '>> /var/log/cron.log 2>&1'
