@@ -3,6 +3,15 @@
 ## [Unreleased]
 - Get live stock data
 
+## [0.0.24] - 2024-07-23
+### Added
+- Cron service
+
+### Changed
+- Update Django settings
+- Update Dockerfile
+- Docker entrypoint for cron service
+
 ## [0.0.23] - 2024-07-21
 ### Added
 - Admin transaction filter
